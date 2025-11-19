@@ -13,7 +13,7 @@ public interface TwoFactorOtpService {
 
     TwoFactorOTP findById(String Id);
 
-    boolean VerifyTwoFactotrOtp (TwoFactorOTP twoFactorOTP, String otp);
+
 
     boolean VerifyTwoFactorOtp(TwoFactorOTP twoFactorOTP, String otp);
 

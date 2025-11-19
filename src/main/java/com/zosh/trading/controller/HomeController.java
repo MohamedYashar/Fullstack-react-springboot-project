@@ -8,6 +8,6 @@ public class HomeController {
 
     @GetMapping("/")
     public String home () {
-        return " Welcome to crypto trading platform home page!! ";
+        return " Welcome to crypto trading platform home page!!";
     }
 }

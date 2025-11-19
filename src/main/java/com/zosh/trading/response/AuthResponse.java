@@ -1,4 +1,4 @@
-package com.zosh.trading.controller;
+package com.zosh.trading.response;
 
 import lombok.Data;
 

@@ -29,6 +29,11 @@ public class TwoFactorOtpServiceImpl implements TwoFactorOtpService{
     }
 
     @Override
+    public TwoFactorOTP findByUserId(Long UserId) {
+        return null;
+    }
+
+    @Override
     public TwoFactorOTP findByUser(Long UserId) {
           return twoFactorOtpRepository.findByUserId(UserId);
     }
@@ -47,7 +52,6 @@ public class TwoFactorOtpServiceImpl implements TwoFactorOtpService{
 
     @Override
     public void deleteTwoFactorOtp(TwoFactorOTP twoFactorOTP) {
-
         twoFactorOtpRepository.delete(twoFactorOTP);
 
     }
