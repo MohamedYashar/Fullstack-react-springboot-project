@@ -45,22 +45,17 @@ public class AuthController {
     public ResponseEntity<AuthResponse> register(@RequestBody User user) throws Exception {
 
 
-        User isEmailExist = userRepository.findByEmail(user.getEmail());
+         User isEmailExist = userRepository.findByEmail(user.getEmail());
 
-        if (isEmailExist !=null){
+        if (isEmailExist != null){
             throw new Exception("email already is already in use with another account");
         }
 
         User newUser = new User();
-        newUser.setFullName(user.getFullName());
         newUser.setEmail(user.getEmail());
-        //  FIX: Encode the password before setting it
-        String encodedPassword = passwordEncoder.encode(user.getPassword());
-        newUser.setPassword(encodedPassword);
-//        newUser.setPassword(user.getPassword());
-
-
-
+        newUser.setPassword(user.getPassword());
+        newUser.setEmail(user.getEmail());
+        newUser.setFullName(user.getFullName());
 
         User savedUser = userRepository.save(newUser);
 
@@ -90,6 +85,18 @@ public class AuthController {
 
         return new ResponseEntity<>(res, HttpStatus.CREATED);
     }
+
+
+
+
+
+
+
+
+
+
+
+
 
     @PostMapping("/signin")
     public ResponseEntity<AuthResponse> login(@RequestBody User user) throws Exception {
@@ -137,28 +144,25 @@ public class AuthController {
         return new ResponseEntity<>(res, HttpStatus.CREATED);
     }
 
+
+
+
+
+
+
     private Authentication authenticate(String userName, String password) {
 
         UserDetails userDetails = customUserDetailService.loadUserByUsername(userName);
 
         if (userDetails == null){
-
-            throw new BadCredentialsException("invalid username");
+            throw new BadCredentialsException("invalid username"); // 1:56:22
         }
-//        if (!password.equals(userDetails.getPassword())){
-//            throw new BadCredentialsException("invalid password");
-//        }
-        if (!passwordEncoder.matches(password, userDetails.getPassword())) {
+
+        if (!password.equals(userDetails.getPassword())){
             throw new BadCredentialsException("invalid password");
         }
 
-//        return new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
-
-        return new UsernamePasswordAuthenticationToken(
-                userDetails,
-                null,
-                userDetails.getAuthorities()
-        );
+        return new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
 
     }
 

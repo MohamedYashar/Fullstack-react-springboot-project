@@ -34,8 +34,7 @@ public class JwtProvider {
     public static String getEmailFromToken ( String token){
         token = token.substring(7);
 
-
-        Claims claims = Jwts.parser().verifyWith((PublicKey) key).build().parseSignedClaims(token).getPayload();
+        Claims claims = Jwts.parser().verifyWith((PublicKey) key).build().parseSignedClaims(token).getPayload();// 1:47:27
 
         return String.valueOf(claims.get("email"));
 

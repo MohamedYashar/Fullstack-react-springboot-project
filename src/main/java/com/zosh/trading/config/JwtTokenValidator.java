@@ -21,15 +21,15 @@ import java.util.List;
 
 public class JwtTokenValidator extends OncePerRequestFilter {
 
-    @Override
-    protected void doFilterInternal(@NonNull HttpServletRequest request,
-                                    @NonNull HttpServletResponse response,
-                                    @NonNull FilterChain filterChain) throws ServletException, IOException {
 
-        String jwt = request.getHeader("JwtConstant.JWT_HEADER");
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
+                                    FilterChain filterChain) throws ServletException, IOException {
+
+        String jwt = request.getHeader(JwtConstant.JWT_HEADER);
 
         // Bearer token validation
-        if (jwt != null && jwt.startsWith("Bearer ")) {
+        if (jwt != null ) {
             jwt = jwt.substring(7); // remove "Bearer " prefix
 
             try {
@@ -62,5 +62,7 @@ public class JwtTokenValidator extends OncePerRequestFilter {
         }
 
         filterChain.doFilter(request, response);
+
+
     }
 }
